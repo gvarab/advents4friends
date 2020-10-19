@@ -1,2 +1,2 @@
 # advents4friends
-Create Advent calendars for friends.
+Create advent calendars for your friends.
