@@ -1,3 +1,13 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+from django.views.generic import DetailView
+from adventcalendar.models import Calendar
 
-# Create your views here.
+
+class CalendarList(ListView):
+
+    model = Calendar
+
+
+class CalendarDetail(DetailView):
+
+    model = Calendar

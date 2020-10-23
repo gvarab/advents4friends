@@ -1,0 +1,10 @@
+{% extends "adventcalendar/base.html" %}
+
+{% block content %}
+    <h2>Doors</h2>
+    <ul>
+        {% for door in object.door_set.all %}
+            <li>{{ door.number }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
