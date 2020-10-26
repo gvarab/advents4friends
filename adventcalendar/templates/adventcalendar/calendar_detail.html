@@ -1,10 +1,10 @@
 {% extends "adventcalendar/base.html" %}
 
 {% block content %}
-    <h2>Doors</h2>
+    <h2>{{ object.name }}</h2>
     <ul>
         {% for door in object.door_set.all %}
-            <li>{{ door.number }}</li>
+            <li><a href="{% url 'door_detail' pk=door.pk cal=door.calendar.pk %}">{{ door.number }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %}
