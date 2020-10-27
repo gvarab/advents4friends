@@ -1,4 +1,5 @@
 from django.urls import reverse
+from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Calendar, Door
 
@@ -17,10 +18,16 @@ class DoorDetail(DetailView):
 
 class NewCalendar(CreateView):
     model = Calendar
-    fields = ['name', ]
+    fields = ['name', 'number_of_doors', ]
 
     def get_success_url(self):
         return reverse('calendar_list')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        for i in range(1, form.instance.number_of_doors+1):
+            Door.objects.create(number=i, content="", opening_date=timezone.now(), calendar=form.instance)
+        return response
 
 
 class EditCalendar(UpdateView):
@@ -31,19 +38,9 @@ class EditCalendar(UpdateView):
         return reverse('calendar_list')
 
 
-class NewDoor(CreateView):
+class EditDoor(UpdateView):
     model = Door
-    fields = ['number', 'content', ]
-    calendar = None
-
-    def dispatch(self, request, *args, **kwargs):
-        calendar_pk = kwargs.get('cal')
-        self.calendar = Calendar.objects.get(pk=calendar_pk)
-        return super().dispatch(request, *args, **kwargs)
+    fields = ['content', ]
 
     def get_success_url(self):
-        return reverse('calendar_detail', args=[self.calendar.pk])
-
-    def form_valid(self, form):
-        form.instance.calendar = self.calendar
-        return super().form_valid(form)
+        return reverse('calendar_detail', args=[self.object.calendar.pk])

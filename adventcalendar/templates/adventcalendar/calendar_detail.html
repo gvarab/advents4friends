@@ -7,6 +7,5 @@
             <li><a href="{% url 'door_detail' pk=door.pk cal=door.calendar.pk %}">{{ door.number }}</a></li>
         {% endfor %}
     </ul>
-    <p><a href="{% url 'door_new' cal=object.pk %}">New door</a></p>
     <p><a href="{% url 'calendar_edit' pk=object.pk %}">Edit this calendar</a></p>
 {% endblock %}

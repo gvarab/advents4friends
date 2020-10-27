@@ -4,6 +4,7 @@ from django.utils import timezone
 
 class Calendar(models.Model):
     name = models.CharField(max_length=100)
+    number_of_doors = models.IntegerField(default=24)
 
 
 class Door(models.Model):
