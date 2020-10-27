@@ -25,8 +25,7 @@ class NewCalendar(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        for i in range(1, form.instance.number_of_doors+1):
-            Door.objects.create(number=i, content="", opening_date=timezone.now(), calendar=form.instance)
+        form.instance.initialize_doors()
         return response
 
 
