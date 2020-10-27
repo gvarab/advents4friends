@@ -1,5 +1,4 @@
 from django.urls import reverse
-from django.utils import timezone
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Calendar, Door
 

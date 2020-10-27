@@ -3,5 +3,6 @@
 {% block content %}
     <h2>{{ object.calendar.name }}: Door {{ object.number }} </h2>
     <p>{{ object.content }}</p>
+    <p>Opening date: {{ object.opening_date }}</p>
     <p><a href="{% url 'door_edit' cal=object.calendar.pk pk=object.pk %}">Edit this door</a></p>
 {% endblock %}
