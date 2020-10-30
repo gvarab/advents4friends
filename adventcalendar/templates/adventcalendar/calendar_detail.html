@@ -8,4 +8,5 @@
         {% endfor %}
     </ul>
     <p><a href="{% url 'calendar_edit' pk=object.pk %}">Edit this calendar</a></p>
+    <p><a href="{% url 'calendar_delete' pk=object.pk %}">Delete this calendar</a></p>
 {% endblock %}

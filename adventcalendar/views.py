@@ -1,5 +1,5 @@
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Calendar, Door
 
 
@@ -31,6 +31,13 @@ class NewCalendar(CreateView):
 class EditCalendar(UpdateView):
     model = Calendar
     fields = ['name', ]
+
+    def get_success_url(self):
+        return reverse('calendar_list')
+
+
+class DeleteCalendar(DeleteView):
+    model = Calendar
 
     def get_success_url(self):
         return reverse('calendar_list')
