@@ -1,12 +1,33 @@
 {% extends "adventcalendar/base.html" %}
+{% load static %}
 
 {% block content %}
-    <h2>{{ object.name }}</h2>
-    <ul>
-        {% for door in object.door_set.all %}
-            <li><a href="{% url 'door_detail' pk=door.pk cal=door.calendar.pk %}">{{ door.number }}</a></li>
-        {% endfor %}
-    </ul>
-    <p><a href="{% url 'calendar_edit' pk=object.pk %}">Edit this calendar</a></p>
-    <p><a href="{% url 'calendar_delete' pk=object.pk %}">Delete this calendar</a></p>
+    <div class="card bg-info">
+        <div class="card-header text-center text-white">
+            <h1>{{ object.name }}</h1>
+        </div>
+        <div class="card-body" style="background-image: url({% static 'img/cupcakes.jpg' %});
+                background-repeat: repeat; background-size: 400px 400px;">
+            <div class="container">
+                <div class="row row-cols-3">
+                    {% for door in object.door_set.all %}
+                        <div class="col">
+                            <div class="card bg-transparent border-dark m-3 text-center" style="border-width: 3px">
+                                <a href="{% url 'door_detail' pk=door.pk cal=door.calendar.pk %}">
+                                    <div class="card-body">
+                                        <h2>{{ door.number }}</h2>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+    </div>
+        <div class="card-footer text-center">
+            <a class="btn btn-light" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
+            <a class="btn btn-light" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
+         </div>
+    </div>
+
 {% endblock %}
