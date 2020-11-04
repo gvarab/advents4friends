@@ -3,6 +3,13 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Calendar, Door
 
 
+STYLES = {
+    Calendar.Theme.PLAIN: 'calendar-plain',
+    Calendar.Theme.CUPCAKE: 'calendar-cupcakes',
+    Calendar.Theme.TREE: 'calendar-trees',
+}
+
+
 class CalendarList(ListView):
     model = Calendar
 
@@ -10,14 +17,26 @@ class CalendarList(ListView):
 class CalendarDetail(DetailView):
     model = Calendar
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        theme = self.get_object().theme
+        context['calendar_style'] = STYLES[theme]
+        return context
+
 
 class DoorDetail(DetailView):
     model = Door
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        theme = self.get_object().calendar.theme
+        context['calendar_style'] = STYLES[theme]
+        return context
+
 
 class NewCalendar(CreateView):
     model = Calendar
-    fields = ['name', 'number_of_doors', ]
+    fields = ['name', 'number_of_doors', 'start_date', 'theme']
 
     def get_success_url(self):
         return reverse('calendar_list')
@@ -30,10 +49,10 @@ class NewCalendar(CreateView):
 
 class EditCalendar(UpdateView):
     model = Calendar
-    fields = ['name', ]
+    fields = ['name', 'theme']
 
     def get_success_url(self):
-        return reverse('calendar_list')
+        return reverse('calendar_detail', args=[self.object.pk])
 
 
 class DeleteCalendar(DeleteView):
