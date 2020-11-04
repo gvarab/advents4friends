@@ -1,19 +1,21 @@
-{% extends "adventcalendar/base.html" %}
+{% extends "adventcalendar/calendar.html" %}
 {% load static %}
 
-{% block content %}
-    <h1 class="text-center text-white bg-info mb-0">{{ object.name }}</h1>
-    <div class="calendar-body border-info m-0">
-        <div class="row row-cols-3">
-            {% for door in object.door_set.all %}
-                <div class="col">
+{% block calendar-header %}
+    {{ object.name }}
+{% endblock %}
+
+{% block calendar-body %}
+    <div class="row row-cols-3">
+        {% for door in object.door_set.all %}
+            <div class="col">
                 {% include "adventcalendar/door.html" %}
-                </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
     </div>
-    <div class="text-center m-2">
-        <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
-        <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
-    </div>
+{% endblock %}
+
+{% block calendar-footer %}
+    <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
+    <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
 {% endblock %}

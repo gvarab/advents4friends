@@ -1,8 +1,18 @@
-{% extends "adventcalendar/base.html" %}
+{% extends "adventcalendar/calendar.html" %}
 
-{% block content %}
-    <h2>{{ object.calendar.name }}: Door {{ object.number }} </h2>
-    <p>{{ object.content }}</p>
+{% block calendar-header %}
+    {{ object.calendar.name }}: Door {{ object.number }}
+{% endblock %}
+
+{% block calendar-body %}
+    <div class="p-3">
+        <div class="border-dark text-center door door-open">
+            <p>{{ object.content }}</p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block calendar-footer %}
     <p>Opening date: {{ object.opening_date }}</p>
-    <p><a href="{% url 'door_edit' cal=object.calendar.pk pk=object.pk %}">Edit this door</a></p>
+    <a class="btn btn-secondary" href="{% url 'door_edit' cal=object.calendar.pk pk=object.pk %}" role="button">Edit</a>
 {% endblock %}

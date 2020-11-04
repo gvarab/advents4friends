@@ -7166,5 +7166,10 @@ a.text-dark:hover, a.text-dark:focus {
   border-right: 2px solid;
   border-top: 2px solid;
   border-bottom: 2px solid;
-  border-left: 2px dashed;
+  border-left: 2px dashed; }
+
+.door-closed {
   background: rgba(255, 255, 255, 0.75); }
+
+.door-open {
+  background: white; }
