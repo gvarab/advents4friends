@@ -1,21 +1,25 @@
 {% extends "adventcalendar/calendar.html" %}
 {% load static %}
 
-{% block calendar-header %}
+{% block back %}
+    <a href={% url 'calendar_list' %}>&#129056; Back to my calendars</a>
+{% endblock %}
+
+{% block calendar_header %}
     {{ object.name }}
 {% endblock %}
 
-{% block calendar-body %}
+{% block calendar_body %}
     <div class="row row-cols-3">
         {% for door in object.door_set.all %}
             <div class="col">
-                {% include "adventcalendar/door.html" %}
+                {% include "adventcalendar/door_closed.html" %}
             </div>
         {% endfor %}
     </div>
 {% endblock %}
 
-{% block calendar-footer %}
+{% block calendar_footer %}
     <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
     <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
 {% endblock %}

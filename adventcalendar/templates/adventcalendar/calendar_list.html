@@ -7,5 +7,7 @@
             <li><a href="{% url 'calendar_detail' pk=calendar.pk %}">{{ calendar.name }}</a></li>
         {% endfor %}
     </ul>
-    <p><a href="{% url 'calendar_new' %}">New calendar</a></p>
+    <p>
+        <a class="btn btn-secondary" href="{% url 'calendar_new' %}" role="button">New calendar</a>
+    </p>
 {% endblock %}
