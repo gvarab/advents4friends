@@ -7155,3 +7155,16 @@ a.text-dark:hover, a.text-dark:focus {
   .table .thead-dark th {
     color: inherit;
     border-color: #dee2e6; } }
+
+.calendar-body {
+  border: 2px solid;
+  background-image: url("../../static/img/cupcakes.jpg");
+  background-repeat: repeat;
+  background-size: 400px 400px; }
+
+.door {
+  border-right: 2px solid;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-left: 2px dashed;
+  background: rgba(255, 255, 255, 0.75); }

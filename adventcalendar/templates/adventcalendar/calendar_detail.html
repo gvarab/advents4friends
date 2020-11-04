@@ -2,32 +2,18 @@
 {% load static %}
 
 {% block content %}
-    <div class="card bg-info">
-        <div class="card-header text-center text-white">
-            <h1>{{ object.name }}</h1>
-        </div>
-        <div class="card-body" style="background-image: url({% static 'img/cupcakes.jpg' %});
-                background-repeat: repeat; background-size: 400px 400px;">
-            <div class="container">
-                <div class="row row-cols-3">
-                    {% for door in object.door_set.all %}
-                        <div class="col">
-                            <div class="card bg-transparent border-dark m-3 text-center" style="border-width: 3px">
-                                <a href="{% url 'door_detail' pk=door.pk cal=door.calendar.pk %}">
-                                    <div class="card-body">
-                                        <h2>{{ door.number }}</h2>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    {% endfor %}
+    <h1 class="text-center text-white bg-info mb-0">{{ object.name }}</h1>
+    <div class="calendar-body border-info m-0">
+        <div class="row row-cols-3">
+            {% for door in object.door_set.all %}
+                <div class="col">
+                {% include "adventcalendar/door.html" %}
                 </div>
-            </div>
+            {% endfor %}
+        </div>
     </div>
-        <div class="card-footer text-center">
-            <a class="btn btn-light" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
-            <a class="btn btn-light" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
-         </div>
+    <div class="text-center m-2">
+        <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
+        <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
     </div>
-
 {% endblock %}
