@@ -4,12 +4,18 @@ $info: #7cd0c1;
 
 @import './node_modules/bootstrap/scss/bootstrap';
 
-.calendar {
+.title-border {
+  border-bottom: 5px dotted;
+  border-top: 5px dotted;
+  border-color: #e53935;
+}
+
+.border-2 {
   border: 2px solid;
 }
 
 .calendar-plain {
-  background-color: lightgray;
+  background-color: floralwhite;
 }
 
 .calendar-cupcakes {

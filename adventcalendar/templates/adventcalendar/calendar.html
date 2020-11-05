@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block content %}
-    <h1 class="text-center text-white bg-info mb-0">
-        {% block calendar_header %}
-        {% endblock %}
-    </h1>
-    <div class="calendar {{ calendar_style }} border-info m-0">
+    <div class="{{ calendar_style }} border-2 m-0">
+        <h1 class="text-center bg-white border-2 p-1 m-3">
+            {% block calendar_header %}
+            {% endblock %}
+        </h1>
         {% block calendar_body %}
         {% endblock %}
     </div>

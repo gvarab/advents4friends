@@ -8,16 +8,16 @@
         <link rel="stylesheet" href="{% static 'css/adventcalendar.css' %}">
     </head>
     <body>
-        <div class="page-header p-2 m-2">
+        <div class="page-header p-2 m-2 title-border">
             <h1>Adventomaton
             <small class="text-muted">Create advent calendars for your friends</small>
             </h1>
         </div>
-       <div class="content container m-2">
+       <div class="content container p-2 m-2">
             {% block back %}
             {% endblock %}
         </div>
-        <div class="content container m-2">
+        <div class="content container p-2 m-2">
             {% block content %}
             {% endblock %}
         </div>
