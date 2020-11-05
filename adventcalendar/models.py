@@ -13,6 +13,7 @@ class Calendar(models.Model):
         PLAIN = 'PL', _('Plain')
         CUPCAKE = 'CU', _('Cupcakes and candy')
         TREE = 'TR', _('Christmas trees')
+        HARE = 'HA', _('Hare in the snow')
 
     theme = models.CharField(
         max_length=2,

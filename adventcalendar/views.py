@@ -7,6 +7,7 @@ STYLES = {
     Calendar.Theme.PLAIN: 'calendar-plain',
     Calendar.Theme.CUPCAKE: 'calendar-cupcakes',
     Calendar.Theme.TREE: 'calendar-trees',
+    Calendar.Theme.HARE: 'calendar-hare',
 }
 
 

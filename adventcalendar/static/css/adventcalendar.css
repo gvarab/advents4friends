@@ -7177,6 +7177,11 @@ a.text-dark:hover, a.text-dark:focus {
   background-repeat: repeat;
   background-size: 400px 400px; }
 
+.calendar-hare {
+  background-image: url("../../static/img/hare.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%; }
+
 .door {
   border-right: 2px solid;
   border-top: 2px solid;
