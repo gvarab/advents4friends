@@ -11,9 +11,11 @@ class Calendar(models.Model):
 
     class Theme(models.TextChoices):
         PLAIN = 'PL', _('Plain')
+        RED = 'RE', _('Red with snowflakes')
         CUPCAKE = 'CU', _('Cupcakes and candy')
         TREE = 'TR', _('Christmas trees')
-        HARE = 'HA', _('Hare in the snow')
+        TWIGS = 'TW', _('Twigs')
+        SNOWMEN = 'SN', _('Snowmen')
 
     theme = models.CharField(
         max_length=2,

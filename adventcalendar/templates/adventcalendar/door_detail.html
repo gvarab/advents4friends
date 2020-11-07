@@ -4,6 +4,10 @@
     <a href={% url 'calendar_detail' pk=object.calendar.pk%}>&#129056; Back to {{ object.calendar.name }}</a>
 {% endblock %}
 
+{% block buttons %}
+    <a class="btn btn-secondary" href="{% url 'door_edit' pk=object.pk %}" role="button">Edit</a>
+{% endblock %}
+
 {% block calendar_header %}
     {{ object.calendar.name }}: Door {{ object.number }}
 {% endblock %}
@@ -18,5 +22,4 @@
 
 {% block calendar_footer %}
     <p>Opening date: {{ object.opening_date }}</p>
-    <a class="btn btn-secondary" href="{% url 'door_edit' pk=object.pk %}" role="button">Edit</a>
 {% endblock %}

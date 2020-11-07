@@ -5,6 +5,17 @@
     <a href={% url 'calendar_list' %}>&#129056; Back to my calendars</a>
 {% endblock %}
 
+{% block buttons %}
+    <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
+    <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
+    {%  if not doors_open %}
+        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}?doorsOpen=True" role="button">Open windows</a>
+    {% endif %}
+    {%  if doors_open %}
+        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}" role="button">Close windows</a>
+    {% endif %}
+{% endblock %}
+
 {% block calendar_header %}
     {{ object.name }}
 {% endblock %}
@@ -25,12 +36,7 @@
 {% endblock %}
 
 {% block calendar_footer %}
-    <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
-    <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
-    {%  if not doors_open %}
-        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}?doorsOpen=True" role="button">Open windows</a>
-    {% endif %}
-    {%  if doors_open %}
-        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}" role="button">Close windows</a>
-    {% endif %}
+    {% if credits %}
+        <p>Background image: <a href="{{ credits }}" target="_blank">Christmas pattern by bm.iphone, CC BY 2.0</a></p>
+    {%  endif %}
 {% endblock %}

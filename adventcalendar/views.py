@@ -5,9 +5,20 @@ from .models import Calendar, Door
 
 STYLES = {
     Calendar.Theme.PLAIN: 'calendar-plain',
+    Calendar.Theme.RED: 'calendar-red',
     Calendar.Theme.CUPCAKE: 'calendar-cupcakes',
     Calendar.Theme.TREE: 'calendar-trees',
-    Calendar.Theme.HARE: 'calendar-hare',
+    Calendar.Theme.TWIGS: 'calendar-twigs',
+    Calendar.Theme.SNOWMEN: 'calendar-snowmen',
+}
+
+IMAGE_CREDITS = {
+    Calendar.Theme.PLAIN: None,
+    Calendar.Theme.RED: 'https://www.flickr.com/photos/bmiphone/23025603455/',
+    Calendar.Theme.CUPCAKE: 'https://www.flickr.com/photos/bmiphone/23025603455/',
+    Calendar.Theme.TREE: 'https://www.flickr.com/photos/bmiphone/23025603455/',
+    Calendar.Theme.TWIGS: 'https://www.flickr.com/photos/bmiphone/23025603455/',
+    Calendar.Theme.SNOWMEN: 'https://www.flickr.com/photos/bmiphone/23025603455/',
 }
 
 
@@ -24,6 +35,7 @@ class CalendarDetail(DetailView):
         doors_open = self.request.GET.get('doorsOpen', None)
         context.update({
             'calendar_style': STYLES[theme],
+            'credits': IMAGE_CREDITS[theme],
             'doors_open': doors_open,
         })
         return context

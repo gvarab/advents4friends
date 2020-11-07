@@ -7167,6 +7167,11 @@ a.text-dark:hover, a.text-dark:focus {
 .calendar-plain {
   background-color: floralwhite; }
 
+.calendar-red {
+  background-image: url("../../static/img/red_with_snowflakes.jpg");
+  background-repeat: repeat;
+  background-size: 400px 400px; }
+
 .calendar-cupcakes {
   background-image: url("../../static/img/cupcakes.jpg");
   background-repeat: repeat;
@@ -7177,10 +7182,15 @@ a.text-dark:hover, a.text-dark:focus {
   background-repeat: repeat;
   background-size: 400px 400px; }
 
-.calendar-hare {
-  background-image: url("../../static/img/hare.jpg");
-  background-repeat: no-repeat;
-  background-size: 100%; }
+.calendar-twigs {
+  background-image: url("../../static/img/twigs.jpg");
+  background-repeat: repeat;
+  background-size: 400px 400px; }
+
+.calendar-snowmen {
+  background-image: url("../../static/img/snowmen.jpg");
+  background-repeat: repeat;
+  background-size: 400px 400px; }
 
 .door {
   border-right: 2px solid;
