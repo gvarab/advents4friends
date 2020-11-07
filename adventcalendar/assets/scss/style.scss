@@ -40,13 +40,19 @@ $info: #7cd0c1;
   border-right: 2px solid;
   border-top: 2px solid;
   border-bottom: 2px solid;
-  border-left: 2px dashed;
+  border-left: 2px solid;
 }
 
 .door-closed {
     background:rgba(255,255,255,0.75);
+    height: 100px;
 }
 
 .door-open {
+    background: white;
+    height: 100px;
+}
+
+.door-detail {
     background: white;
 }

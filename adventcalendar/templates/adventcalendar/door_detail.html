@@ -10,7 +10,7 @@
 
 {% block calendar_body %}
     <div class="p-3">
-        <div class="border-dark text-center door door-open m-5 p-5">
+        <div class="border-dark text-center door door-detail m-5 p-5">
             <p>{{ object.content }}</p>
         </div>
     </div>
@@ -18,5 +18,5 @@
 
 {% block calendar_footer %}
     <p>Opening date: {{ object.opening_date }}</p>
-    <a class="btn btn-secondary" href="{% url 'door_edit' cal=object.calendar.pk pk=object.pk %}" role="button">Edit</a>
+    <a class="btn btn-secondary" href="{% url 'door_edit' pk=object.pk %}" role="button">Edit</a>
 {% endblock %}
