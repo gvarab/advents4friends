@@ -21,7 +21,11 @@ class CalendarDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         theme = self.get_object().theme
-        context['calendar_style'] = STYLES[theme]
+        doors_open = self.request.GET.get('doorsOpen', None)
+        context.update({
+            'calendar_style': STYLES[theme],
+            'doors_open': doors_open,
+        })
         return context
 
 

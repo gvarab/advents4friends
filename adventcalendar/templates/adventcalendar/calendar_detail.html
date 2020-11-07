@@ -13,7 +13,12 @@
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6">
         {% for door in object.door_set.all %}
             <div class="col">
-                {% include "adventcalendar/door_open.html" %}
+                {% if doors_open %}
+                    {% include "adventcalendar/door_open.html" %}
+                {% endif %}
+                {% if not doors_open %}
+                    {% include "adventcalendar/door_closed.html" %}
+                {% endif %}
             </div>
         {% endfor %}
     </div>
@@ -22,4 +27,10 @@
 {% block calendar_footer %}
     <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
     <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
+    {%  if not doors_open %}
+        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}?doorsOpen=True" role="button">Open windows</a>
+    {% endif %}
+    {%  if doors_open %}
+        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}" role="button">Close windows</a>
+    {% endif %}
 {% endblock %}
