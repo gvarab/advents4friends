@@ -3,10 +3,8 @@
 
 {% block content %}
     <div class="{{ calendar_style }} border-2 m-0 shadow">
-        <h1 class="text-center bg-white border-2 p-1 m-3">
-            {% block calendar_header %}
-            {% endblock %}
-        </h1>
+        {% block calendar_header %}
+        {% endblock %}
         {% block calendar_body %}
         {% endblock %}
     </div>

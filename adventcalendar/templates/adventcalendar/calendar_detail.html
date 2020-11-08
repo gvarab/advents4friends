@@ -1,34 +1,49 @@
 {% extends "adventcalendar/calendar.html" %}
 {% load static %}
 
-{% block back %}
-    <a class="text-dark" href={% url 'calendar_list' %}>&#129056; Back to my calendars</a>
-{% endblock %}
-
-{% block buttons %}
-    <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit</a>
-    <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete</a>
-    {%  if not doors_open %}
-        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}?doorsOpen=True" role="button">Open windows</a>
-    {% endif %}
-    {%  if doors_open %}
-        <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}" role="button">Close windows</a>
+{% block header %}
+    <p><a href={% url 'calendar_list' %}>&#129056; Back to my calendars</a></p>
+    {% if object.creator != view.request.user %}
+        <p>There are <b>{{ number_of_openable_doors }}</b> doors that you can open today.</p>
+    {% else %}
+        <p>
+            <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit calendar</a>
+            <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete calendar</a>
+            {%  if not doors_open %}
+                <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}?doorsOpen=True" role="button">Open doors</a>
+            {% endif %}
+            {%  if doors_open %}
+                <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}" role="button">Close doors</a>
+            {% endif %}
+        </p>
     {% endif %}
 {% endblock %}
 
 {% block calendar_header %}
-    {{ object.name }}
+    <div class="text-center bg-white border-2 p-1 m-3">
+        <h1>{{ object.name }}</h1>
+        <small class="text-muted">({{ object.start_date }} – {{ object.final_date }})</small>
+    </div>
 {% endblock %}
 
 {% block calendar_body %}
     <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6">
         {% for door in sorted_doors %}
             <div class="col">
-                {% if doors_open %}
-                    {% include "adventcalendar/door_open.html" %}
-                {% endif %}
-                {% if not doors_open %}
-                    {% include "adventcalendar/door_closed.html" %}
+                {% if object.creator == view.request.user %}
+                    {% if doors_open %}
+                        {% include "adventcalendar/door_open.html" %}
+                    {% else %}
+                        {% include "adventcalendar/door_closed.html" %}
+                    {% endif %}
+                {% else %}
+                    {% if door.open %}
+                        {% include "adventcalendar/door_open.html" %}
+                    {% elif door.is_openable %}
+                        {% include "adventcalendar/door_closed.html" %}
+                    {% else %}
+                        {% include "adventcalendar/door_inactive.html" %}
+                    {% endif %}
                 {% endif %}
             </div>
         {% endfor %}

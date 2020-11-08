@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Calendar, Door
@@ -34,11 +35,17 @@ class CalendarDetail(DetailView):
         theme = self.get_object().theme
         doors_open = self.request.GET.get('doorsOpen', None)
         sorted_doors = self.get_object().door_set.all().order_by('position')
+        openable_doors = []
+        for door in list(sorted_doors):
+            if door.is_openable:
+                 openable_doors.append(door)
         context.update({
             'calendar_style': STYLES[theme],
             'credits': IMAGE_CREDITS[theme],
             'doors_open': doors_open,
             'sorted_doors': sorted_doors,
+            'openable_doors': openable_doors,
+            'number_of_openable_doors': len(openable_doors),
         })
         return context
 
@@ -61,6 +68,7 @@ class NewCalendar(CreateView):
         return reverse('calendar_list')
 
     def form_valid(self, form):
+        form.instance.creator = self.request.user
         response = super().form_valid(form)
         form.instance.initialize_doors()
         return response

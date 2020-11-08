@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +7,7 @@ import random
 
 
 class Calendar(models.Model):
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     number_of_doors = models.IntegerField(default=24)
     start_date = models.DateField(default=date(timezone.now().year, 12, 1))
@@ -37,6 +39,11 @@ class Calendar(models.Model):
                 position=door_number,
             )
 
+    @property
+    def final_date(self):
+        final_date = self.start_date + timedelta(days=self.number_of_doors-1)
+        return final_date
+
 
 class Door(models.Model):
     number = models.IntegerField()
@@ -51,3 +58,7 @@ class Door(models.Model):
         if len(self.content) > 10:
             short_content = short_content[0:10] + '...'
         return short_content
+
+    @property
+    def is_openable(self):
+        return date.today() >= self.opening_date
