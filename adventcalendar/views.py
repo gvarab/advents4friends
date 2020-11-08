@@ -33,10 +33,12 @@ class CalendarDetail(DetailView):
         context = super().get_context_data(**kwargs)
         theme = self.get_object().theme
         doors_open = self.request.GET.get('doorsOpen', None)
+        sorted_doors = self.get_object().door_set.all().order_by('position')
         context.update({
             'calendar_style': STYLES[theme],
             'credits': IMAGE_CREDITS[theme],
             'doors_open': doors_open,
+            'sorted_doors': sorted_doors,
         })
         return context
 

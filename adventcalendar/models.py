@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from datetime import date, timedelta
+import random
 
 
 class Calendar(models.Model):
@@ -24,9 +25,17 @@ class Calendar(models.Model):
     )
 
     def initialize_doors(self):
-        for i in range(0, self.number_of_doors):
-            Door.objects.create(number=i + 1, content="", opening_date=self.start_date + timedelta(days=i),
-                                calendar=self)
+        random.seed()
+        random_door_numbers = list(range(0, self.number_of_doors))
+        random.shuffle(random_door_numbers)
+        for i, door_number in enumerate(random_door_numbers):
+            Door.objects.create(
+                number=i + 1,
+                content="",
+                opening_date=self.start_date + timedelta(days=i),
+                calendar=self,
+                position=door_number,
+            )
 
 
 class Door(models.Model):
@@ -35,6 +44,7 @@ class Door(models.Model):
     opening_date = models.DateField(default=timezone.now)
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
     open = models.BooleanField(default=False)
+    position = models.IntegerField()
 
     def short_content(self):
         short_content = self.content
