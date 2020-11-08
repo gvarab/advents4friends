@@ -1,7 +1,9 @@
 <div class="p-3">
-    <a href="{% url 'door_detail' pk=door.pk %}">
-        <div class="border-dark text-center door door-open">
-            <p>{{ door.short_content }}</p>
+    <a class="text-dark" href="{% url 'door_detail' pk=door.pk %}">
+        <div class="border-dark door door-closed d-flex align-items-center">
+            <div class="container text-center">
+                <p>{{ door.short_content }}</p>
+            </div>
         </div>
     </a>
 </div>
