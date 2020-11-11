@@ -37,7 +37,7 @@ class CalendarDetail(DetailView):
         sorted_doors = self.get_object().door_set.all().order_by('position')
         openable_doors = []
         for door in list(sorted_doors):
-            if door.is_openable:
+            if door.is_openable and not door.open:
                  openable_doors.append(door)
         context.update({
             'calendar_style': STYLES[theme],
@@ -52,6 +52,14 @@ class CalendarDetail(DetailView):
 
 class DoorDetail(DetailView):
     model = Door
+
+    def get(self, request, *args, **kwargs):
+        response = super().get(request, *args, **kwargs)
+        door = self.get_object()
+        if request.user != door.calendar.creator:
+            door.open = True
+            door.save()
+        return response
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
