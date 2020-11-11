@@ -1,8 +1,8 @@
 {% extends "adventcalendar/calendar.html" %}
 
 {% block header %}
-    <p><a href={% url 'calendar_detail' pk=object.calendar.pk%}>&#129056; Back to {{ object.calendar.name }}</a></p>
-    <p><a class="btn btn-secondary" href="{% url 'door_edit' pk=object.pk %}" role="button">Edit door</a></p>
+    <p><a href={% url 'calendar_detail' slug=object.calendar.slug%}>&#129056; Back to {{ object.calendar.name }}</a></p>
+    <p><a class="btn btn-secondary" href="{% url 'door_edit' slug=object.slug %}" role="button">Edit door</a></p>
 {% endblock %}
 
 {% block calendar_header %}

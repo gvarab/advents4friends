@@ -1,4 +1,4 @@
-from datetime import timedelta
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Calendar, Door
@@ -57,6 +57,8 @@ class DoorDetail(DetailView):
         response = super().get(request, *args, **kwargs)
         door = self.get_object()
         if request.user != door.calendar.creator:
+            if not door.is_openable:
+                return redirect('calendar_detail', door.calendar.slug)
             door.open = True
             door.save()
         return response
@@ -77,9 +79,7 @@ class NewCalendar(CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        response = super().form_valid(form)
-        form.instance.initialize_doors()
-        return response
+        return super().form_valid(form)
 
 
 class EditCalendar(UpdateView):
@@ -87,7 +87,7 @@ class EditCalendar(UpdateView):
     fields = ['name', 'theme']
 
     def get_success_url(self):
-        return reverse('calendar_detail', args=[self.object.pk])
+        return reverse('calendar_detail', args=[self.object.slug])
 
 
 class DeleteCalendar(DeleteView):
@@ -102,4 +102,4 @@ class EditDoor(UpdateView):
     fields = ['content', ]
 
     def get_success_url(self):
-        return reverse('calendar_detail', args=[self.object.calendar.pk])
+        return reverse('calendar_detail', args=[self.object.calendar.slug])

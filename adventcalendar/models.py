@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from datetime import date, timedelta
-import random
+import random, string
 
 
 class Calendar(models.Model):
@@ -11,6 +11,7 @@ class Calendar(models.Model):
     name = models.CharField(max_length=100)
     number_of_doors = models.IntegerField(default=24)
     start_date = models.DateField(default=date(timezone.now().year, 12, 1))
+    slug = models.SlugField()
 
     class Theme(models.TextChoices):
         PLAIN = 'PL', _('Plain')
@@ -26,6 +27,10 @@ class Calendar(models.Model):
         default=Theme.PLAIN,
     )
 
+    def create_door_slug(self, number):
+        slug = self.slug + '-' + str(number)
+        return slug
+
     def initialize_doors(self):
         random.seed()
         random_door_numbers = list(range(0, self.number_of_doors))
@@ -37,7 +42,21 @@ class Calendar(models.Model):
                 opening_date=self.start_date + timedelta(days=i),
                 calendar=self,
                 position=door_number,
+                slug=self.create_door_slug(i+1),
             )
+
+    def create_slug(self):
+        letters = string.ascii_lowercase
+        random_string = ''.join(random.choice(letters) for i in range(10))
+        while Calendar.objects.filter(slug=random_string).exists():
+            random_string = ''.join(random.choice(letters) for i in range(10))
+        return random_string
+
+    def save(self, **kwargs):
+        if not self.pk:
+            self.slug = self.create_slug()
+        super().save(**kwargs)
+        self.initialize_doors()
 
     @property
     def final_date(self):
@@ -52,6 +71,7 @@ class Door(models.Model):
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
     open = models.BooleanField(default=False)
     position = models.IntegerField()
+    slug = models.SlugField()
 
     def short_content(self):
         short_content = self.content

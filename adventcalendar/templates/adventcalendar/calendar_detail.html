@@ -2,18 +2,20 @@
 {% load static %}
 
 {% block header %}
-    <p><a href={% url 'calendar_list' %}>&#129056; Back to my calendars</a></p>
+    {% if object.creator == view.request.user %}
+        <p><a href={% url 'calendar_list' %}>&#129056; Back to my calendars</a></p>
+    {% endif %}
     {% if object.creator != view.request.user %}
         <p>There are <b>{{ number_of_openable_doors }}</b> doors that you can open today.</p>
     {% else %}
         <p>
-            <a class="btn btn-secondary" href="{% url 'calendar_edit' pk=object.pk %}" role="button">Edit calendar</a>
-            <a class="btn btn-secondary" href="{% url 'calendar_delete' pk=object.pk %}" role="button">Delete calendar</a>
+            <a class="btn btn-secondary" href="{% url 'calendar_edit' slug=object.slug %}" role="button">Edit calendar</a>
+            <a class="btn btn-secondary" href="{% url 'calendar_delete' slug=object.slug %}" role="button">Delete calendar</a>
             {%  if not doors_open %}
-                <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}?doorsOpen=True" role="button">Open doors</a>
+                <a class="btn btn-secondary" href="{% url 'calendar_detail' slug=object.slug %}?doorsOpen=True" role="button">Open doors</a>
             {% endif %}
             {%  if doors_open %}
-                <a class="btn btn-secondary" href="{% url 'calendar_detail' pk=object.pk %}" role="button">Close doors</a>
+                <a class="btn btn-secondary" href="{% url 'calendar_detail' slug=object.slug %}" role="button">Close doors</a>
             {% endif %}
         </p>
     {% endif %}

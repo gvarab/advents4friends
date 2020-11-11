@@ -1,5 +1,5 @@
 <div class="p-3">
-    <a href="{% url 'door_detail' pk=door.pk %}">
+    <a href="{% url 'door_detail' slug=door.slug %}">
         <div class="border-dark door door-closed d-flex align-items-center">
             <div class="container text-center">
                 <p><h2>{{ door.number }}</h2></p>

@@ -4,7 +4,7 @@
     <h2>Calendars</h2>
     <ul>
         {% for calendar in object_list %}
-            <li><a href="{% url 'calendar_detail' pk=calendar.pk %}">{{ calendar.name }}</a></li>
+            <li><a href="{% url 'calendar_detail' slug=calendar.slug %}">{{ calendar.name }}</a></li>
         {% endfor %}
     </ul>
     <p>
