@@ -26,6 +26,13 @@ IMAGE_CREDITS = {
 class CalendarList(ListView):
     model = Calendar
 
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            return super().get_queryset().filter(creator=self.request.user)
+        else:
+            return Calendar.objects.none()
+
+
 
 class CalendarDetail(DetailView):
     model = Calendar
