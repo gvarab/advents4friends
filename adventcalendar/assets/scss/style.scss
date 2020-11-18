@@ -4,6 +4,10 @@ $info: #7cd0c1;
 
 @import './node_modules/bootstrap/scss/bootstrap';
 
+.black {
+  color: black;
+}
+
 .title-border {
   border-bottom: 5px dotted;
   border-top: 5px dotted;
