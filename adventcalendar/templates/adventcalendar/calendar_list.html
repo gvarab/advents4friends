@@ -1,6 +1,7 @@
 {% extends "adventcalendar/base.html" %}
 
 {% block content %}
+    {% if user.is_authenticated %}
     <h2>Calendars</h2>
     <ul>
         {% for calendar in object_list %}
@@ -10,4 +11,9 @@
     <p>
         <a class="btn btn-secondary" href="{% url 'calendar_new' %}" role="button">New calendar</a>
     </p>
+    {%  else %}
+        <p>
+            Sign up or sign in to start creating advent calendars!
+        </p>
+    {% endif %}
 {% endblock %}
