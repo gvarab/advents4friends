@@ -7211,3 +7211,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .door-detail {
   background: white; }
+
+.footer {
+  border-top: 5px dotted;
+  border-color: #e53935; }

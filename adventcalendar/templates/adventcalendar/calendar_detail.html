@@ -24,9 +24,8 @@
         <div class="collapse" id="publishinfo">
             <div class="card card-body">
                 As soon as you are happy with your calendar and want to give it to a friend, simply send them the
-                link (...). They will be allowed to open one door per day. The calendar can be
-                accessed by anyone who has the link and once a door is opened, it will remain open, so make sure
-                to send each calendar to only one friend. Have fun!
+                link ({{ request.path }}). The calendar can be accessed by anyone who has the link and once a door
+                is opened, it will remain open, so make sure to send each calendar to only one friend. Have fun!
             </div>
         </div>
     {% endif %}
@@ -40,7 +39,7 @@
 {% endblock %}
 
 {% block calendar_body %}
-    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6">
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6 text-center">
         {% for door in sorted_doors %}
             <div class="col">
                 {% if object.creator == view.request.user %}

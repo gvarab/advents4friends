@@ -13,7 +13,7 @@
     </p>
     {%  else %}
         <p>
-            Sign up or sign in to start creating advent calendars!
+            <a href="{% url 'login' %}">Log in</a> to start creating advent calendars!
         </p>
     {% endif %}
 {% endblock %}
