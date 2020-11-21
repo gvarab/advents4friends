@@ -1,7 +1,9 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Calendar, Door
+from .forms import DoorForm
 
 
 STYLES = {
@@ -89,24 +91,33 @@ class NewCalendar(CreateView):
         return super().form_valid(form)
 
 
-class EditCalendar(UpdateView):
+class EditCalendar(PermissionRequiredMixin, UpdateView):
     model = Calendar
     fields = ['name', 'theme']
 
     def get_success_url(self):
         return reverse('calendar_detail', args=[self.object.slug])
 
+    def has_permission(self):
+        return self.request.user == self.get_object().creator
 
-class DeleteCalendar(DeleteView):
+
+class DeleteCalendar(PermissionRequiredMixin, DeleteView):
     model = Calendar
 
     def get_success_url(self):
         return reverse('calendar_list')
 
+    def has_permission(self):
+        return self.request.user == self.get_object().creator
 
-class EditDoor(UpdateView):
+
+class EditDoor(PermissionRequiredMixin, UpdateView):
     model = Door
-    fields = ['content', ]
+    form_class = DoorForm
 
     def get_success_url(self):
         return reverse('calendar_detail', args=[self.object.calendar.slug])
+
+    def has_permission(self):
+        return self.request.user == self.get_object().creator

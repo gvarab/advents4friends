@@ -7215,3 +7215,7 @@ a.text-dark:hover, a.text-dark:focus {
 .footer {
   border-top: 5px dotted;
   border-color: #e53935; }
+
+* {
+  max-width: 100%;
+  height: auto; }

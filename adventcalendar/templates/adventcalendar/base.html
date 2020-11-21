@@ -1,4 +1,5 @@
 {% load static %}
+<!DOCTYPE HTML>
 <html>
     <head>
         <title>Adventomaton. Create advent calendars for your friends</title>
@@ -6,6 +7,8 @@
         <script src="{% static 'js/popper.min.js' %}"></script>
         <script src="{% static 'js/bootstrap.min.js' %}"></script>
         <link rel="stylesheet" href="{% static 'css/adventcalendar.css' %}">
+        {% block extrahead %}
+        {% endblock %}
     </head>
     <body class="d-flex flex-column min-vh-100">
         <div class="page-header p-2 m-2 title-border">

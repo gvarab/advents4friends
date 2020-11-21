@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 from datetime import date, timedelta
 import random, string
@@ -10,7 +11,7 @@ class Calendar(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     number_of_doors = models.IntegerField(default=24)
-    start_date = models.DateField(default=date(timezone.now().year, 12, 1))
+    start_date = models.DateField(default=date(timezone.now().year, 12, 1), help_text = '(Format: YY-MM-DD)')
     slug = models.SlugField()
 
     class Theme(models.TextChoices):
@@ -74,7 +75,7 @@ class Door(models.Model):
     slug = models.SlugField()
 
     def short_content(self):
-        short_content = self.content
+        short_content = strip_tags(self.content)
         if len(self.content) > 10:
             short_content = short_content[0:10] + '...'
         return short_content

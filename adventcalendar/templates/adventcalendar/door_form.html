@@ -1,5 +1,9 @@
 {% extends "adventcalendar/base.html" %}
 
+{% block extrahead %}
+    {{ form.media }}
+{% endblock %}
+
 {% block content %}
     <h2>Edit door</h2>
     <form method="POST" class="post-form">{% csrf_token %}
