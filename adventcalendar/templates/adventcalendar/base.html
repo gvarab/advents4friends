@@ -25,7 +25,7 @@
             {% endblock %}
         </div>
     <div class="footer text-center p-2 m-2">
-        <a href="{% url 'contact_privacy' %}">Contact and privacy</a> * {% if user.is_authenticated %}<a href="{% url 'logout' %}">Log out</a>{% else %}<a href="{% url 'login' %}">Log in</a>{% endif %}
+        <a href="{% url 'contact_privacy' %}">Contact and privacy</a> * <a href="https://github.com/gvarab/advents4friends">Adventomaton on GitHub</a> * {% if user.is_authenticated %}<a href="{% url 'logout' %}">Log out</a>{% else %}<a href="{% url 'login' %}">Log in</a>{% endif %}
     </div>
     </body>
 </html>
