@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Calendar, Door
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from .models import Calendar, Door, Snippet
 from .forms import DoorForm
 
 
@@ -121,3 +121,13 @@ class EditDoor(PermissionRequiredMixin, UpdateView):
 
     def has_permission(self):
         return self.request.user == self.get_object().calendar.creator
+
+
+class ContactPrivacy(TemplateView):
+    template_name = 'adventcalendar/contact_privacy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['privacy_snippet'] = Snippet.objects.get(name='privacy').content
+        context['contact_snippet'] = Snippet.objects.get(name='contact').content
+        return context

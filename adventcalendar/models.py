@@ -59,6 +59,9 @@ class Calendar(models.Model):
         super().save(**kwargs)
         self.initialize_doors()
 
+    def __str__(self):
+        return self.name
+
     @property
     def final_date(self):
         final_date = self.start_date + timedelta(days=self.number_of_doors-1)
@@ -80,6 +83,17 @@ class Door(models.Model):
             short_content = short_content[0:10] + '...'
         return short_content
 
+    def __str__(self):
+        return '{}-{}'.format(self.calendar.name, self.number)
+
     @property
     def is_openable(self):
         return date.today() >= self.opening_date
+
+
+class Snippet(models.Model):
+    name = models.CharField(max_length=100)
+    content = models.TextField(max_length=5000)
+
+    def __str__(self):
+        return self.name

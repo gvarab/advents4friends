@@ -1,6 +1,6 @@
 from django.urls import include, path
 from adventcalendar.views import CalendarList, CalendarDetail, DoorDetail, NewCalendar,\
-    EditCalendar, EditDoor, DeleteCalendar
+    EditCalendar, EditDoor, DeleteCalendar, ContactPrivacy
 
 urlpatterns = [
     path('', CalendarList.as_view(), name='calendar_list'),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('door/<slug:slug>/edit/', EditDoor.as_view(), name='door_edit'),
     path('accounts/', include('django_registration.backends.one_step.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('contact/', ContactPrivacy.as_view(), name='contact_privacy'),
 ]
