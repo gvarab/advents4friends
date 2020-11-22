@@ -25,7 +25,7 @@
             {% endblock %}
         </div>
     <div class="footer text-center p-2 m-2">
-        Help * Contact * Privacy * {% if user.is_authenticated %}<a href="{% url 'logout' %}">Log out</a>{% else %}<a href="{% url 'login' %}">Log in</a>{% endif %}
+        Help * Contact * Privacy * {% if user.is_authenticated %}<a href="{% url 'logout' %}">Log out</a>{% else %}<a href="{% url 'login' %}">Log in</a>{% endif %} * <a href="{% url 'django_registration_register' %}">Sign up</a>
     </div>
     </body>
 </html>
