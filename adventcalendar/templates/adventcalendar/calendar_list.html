@@ -12,6 +12,13 @@
         <a class="btn btn-secondary" href="{% url 'calendar_new' %}" role="button">New calendar</a>
     </p>
     {%  else %}
+        <h2>Welcome! ☃</h2>
+        <ul>
+            <li>Choose a time frame (doesn't have to be December!).</li>
+            <li>Create a calendar with one door for each day.</li>
+            <li>Fill each door with a surprise text, link, or image.</li>
+            <li>Send it to your friend!</li>
+        </ul>
         <p>
             <a href="{% url 'login' %}">Log in</a> to start creating advent calendars!
         </p>
