@@ -121,4 +121,3 @@ class EditDoor(PermissionRequiredMixin, UpdateView):
 
     def has_permission(self):
         return self.request.user == self.get_object().calendar.creator
-    

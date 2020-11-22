@@ -4,6 +4,8 @@
     <h2>Log in</h2>
     <form method="POST" class="post-form">{% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="save btn btn-secondary">Submit</button>
+        <button type="submit" class="save btn btn-secondary mb-3">Submit</button>
     </form>
+    <p><a href="{% url 'django_registration_register' %}">Don't have an account yet? Sign up here.</a></p>
+    <p><a href="{% url 'password_reset' %}">Forgot your password? Reset it here.</a></p>
 {% endblock %}

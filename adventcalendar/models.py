@@ -76,7 +76,7 @@ class Door(models.Model):
 
     def short_content(self):
         short_content = strip_tags(self.content)
-        if len(self.content) > 10:
+        if len(short_content) > 10:
             short_content = short_content[0:10] + '...'
         return short_content
 
