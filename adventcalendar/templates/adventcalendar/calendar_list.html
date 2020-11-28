@@ -3,12 +3,16 @@
 {% block content %}
     {% if user.is_authenticated %}
         <h2>Calendars</h2>
-        <ul>
+        <ul style="display: inline-block;">
             {% for calendar in object_list %}
                 <li>
-                    <a href="{% url 'calendar_detail' slug=calendar.slug %}">{{ calendar.name }}</a>
-                    <a class="btn btn-secondary btn-sm p-0 m-1" href="{% url 'calendar_copy' slug=calendar.slug %}" role="button">Copy</a>
-                    <a class="btn btn-danger btn-sm p-0 m-1" href="{% url 'calendar_delete' slug=calendar.slug %}" role="button">Delete</a>
+                <div class="d-flex align-items-baseline justify-content-between">
+                    <a class="mr-3" href="{% url 'calendar_detail' slug=calendar.slug %}">{{ calendar.name }}</a>
+                    <span>
+                        <a class="btn btn-secondary btn-sm p-0 m-1" href="{% url 'calendar_copy' slug=calendar.slug %}" role="button">Copy</a>
+                        <a class="btn btn-danger btn-sm p-0 m-1" href="{% url 'calendar_delete' slug=calendar.slug %}" role="button">Delete</a>
+                    </span>
+                </div>
                 </li>
             {% endfor %}
         </ul>
