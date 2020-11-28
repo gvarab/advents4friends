@@ -10,7 +10,6 @@
     {% else %}
         <p>
             <a class="btn btn-secondary" href="{% url 'calendar_edit' slug=object.slug %}" role="button">Edit calendar</a>
-            <a class="btn btn-secondary" href="{% url 'calendar_delete' slug=object.slug %}" role="button">Delete calendar</a>
             {%  if not doors_open %}
                 <a class="btn btn-secondary" href="{% url 'calendar_detail' slug=object.slug %}?doorsOpen=True" role="button">Open doors</a>
             {% endif %}

@@ -35,7 +35,6 @@ class CalendarList(ListView):
             return Calendar.objects.none()
 
 
-
 class CalendarDetail(DetailView):
     model = Calendar
 
@@ -88,7 +87,9 @@ class NewCalendar(CreateView):
 
     def form_valid(self, form):
         form.instance.creator = self.request.user
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        form.instance.initialize_doors()
+        return response
 
 
 class EditCalendar(PermissionRequiredMixin, UpdateView):
@@ -100,6 +101,30 @@ class EditCalendar(PermissionRequiredMixin, UpdateView):
 
     def has_permission(self):
         return self.request.user == self.get_object().creator
+
+
+class CopyCalendar(PermissionRequiredMixin, CreateView):
+    model = Calendar
+    fields = ['name']
+    template_name = 'adventcalendar/calendar_copy_form.html'
+    original_calendar = None
+
+    def get_success_url(self):
+        return reverse('calendar_list')
+
+    def has_permission(self):
+        self.original_calendar = Calendar.objects.get(slug=self.kwargs.get('slug'))
+        return self.request.user == self.get_object().creator
+
+    def form_valid(self, form):
+
+        form.instance.creator = self.request.user
+        form.instance.number_of_doors = self.original_calendar.number_of_doors
+        form.instance.start_date = self.original_calendar.start_date
+        form.instance.theme = self.original_calendar.theme
+        response = super().form_valid(form)
+        form.instance.copy_doors(self.original_calendar)
+        return response
 
 
 class DeleteCalendar(PermissionRequiredMixin, DeleteView):

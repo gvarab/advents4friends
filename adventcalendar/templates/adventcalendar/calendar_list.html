@@ -2,12 +2,16 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-    <h2>Calendars</h2>
-    <ul>
-        {% for calendar in object_list %}
-            <li><a href="{% url 'calendar_detail' slug=calendar.slug %}">{{ calendar.name }}</a></li>
-        {% endfor %}
-    </ul>
+        <h2>Calendars</h2>
+        <ul>
+            {% for calendar in object_list %}
+                <li>
+                    <a href="{% url 'calendar_detail' slug=calendar.slug %}">{{ calendar.name }}</a>
+                    <a class="btn btn-secondary btn-sm p-0 m-1" href="{% url 'calendar_copy' slug=calendar.slug %}" role="button">Copy</a>
+                    <a class="btn btn-danger btn-sm p-0 m-1" href="{% url 'calendar_delete' slug=calendar.slug %}" role="button">Delete</a>
+                </li>
+            {% endfor %}
+        </ul>
     <p>
         <a class="btn btn-secondary" href="{% url 'calendar_new' %}" role="button">New calendar</a>
     </p>

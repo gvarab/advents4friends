@@ -46,6 +46,17 @@ class Calendar(models.Model):
                 slug=self.create_door_slug(i+1),
             )
 
+    def copy_doors(self, calendar):
+        for door in calendar.door_set.all():
+            Door.objects.create(
+                number=door.number,
+                content=door.content,
+                opening_date=door.opening_date,
+                calendar=self,
+                position=door.position,
+                slug=self.create_door_slug(door.number),
+            )
+
     def create_slug(self):
         letters = string.ascii_lowercase
         random_string = ''.join(random.choice(letters) for i in range(10))
@@ -57,7 +68,6 @@ class Calendar(models.Model):
         if not self.pk:
             self.slug = self.create_slug()
         super().save(**kwargs)
-        self.initialize_doors()
 
     def __str__(self):
         return self.name

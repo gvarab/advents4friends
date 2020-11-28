@@ -1,0 +1,15 @@
+{% extends "adventcalendar/base.html" %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+    <h2>Copy calendar</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-secondary">Save</button>
+    </form>
+    {%  else %}
+        <p>
+            Sign up or sign in to start creating advent calendars!
+        </p>
+    {% endif %}
+{% endblock %}

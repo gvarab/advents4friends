@@ -12,3 +12,5 @@ class DoorForm(forms.ModelForm):
             'content': TinyMCE(),
         }
 
+class CalenderCopyForm(forms.Form):
+    pass
