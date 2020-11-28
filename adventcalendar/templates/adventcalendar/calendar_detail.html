@@ -3,7 +3,7 @@
 
 {% block header %}
     {% if object.creator == view.request.user %}
-        <p><a href={% url 'calendar_list' %}>&#129056; Back to my calendars</a></p>
+        <p><a href={% url 'calendar_list' %}>&lt; Back to my calendars</a></p>
     {% endif %}
     {% if object.creator != view.request.user %}
         <p>There are <b>{{ number_of_openable_doors }}</b> doors that you can open today.</p>

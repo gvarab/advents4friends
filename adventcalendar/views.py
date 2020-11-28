@@ -74,7 +74,13 @@ class DoorDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         theme = self.get_object().calendar.theme
+        previous_door = self.get_object().calendar.get_previous_door(self.get_object())
+        next_door = self.get_object().calendar.get_next_door(self.get_object())
+        print(previous_door)
+        print(next_door)
         context['calendar_style'] = STYLES[theme]
+        context['previous_door'] = previous_door
+        context['next_door'] = next_door
         return context
 
 
@@ -142,7 +148,7 @@ class EditDoor(PermissionRequiredMixin, UpdateView):
     form_class = DoorForm
 
     def get_success_url(self):
-        return reverse('calendar_detail', args=[self.object.calendar.slug])
+        return reverse('door_detail', args=[self.object.slug])
 
     def has_permission(self):
         return self.request.user == self.get_object().calendar.creator

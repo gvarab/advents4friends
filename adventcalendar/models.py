@@ -57,6 +57,12 @@ class Calendar(models.Model):
                 slug=self.create_door_slug(door.number),
             )
 
+    def get_previous_door(self, door):
+        return self.door_set.all().filter(number=door.number - 1).first()
+
+    def get_next_door(self, door):
+        return self.door_set.all().filter(number=door.number + 1).first()
+
     def create_slug(self):
         letters = string.ascii_lowercase
         random_string = ''.join(random.choice(letters) for i in range(10))
