@@ -86,7 +86,7 @@ class Calendar(models.Model):
 
 class Door(models.Model):
     number = models.IntegerField()
-    content = models.TextField(max_length=1000)
+    content = models.TextField(max_length=10000)
     opening_date = models.DateField(default=timezone.now)
     calendar = models.ForeignKey(Calendar, on_delete=models.CASCADE, null=True)
     open = models.BooleanField(default=False)
