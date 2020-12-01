@@ -1,19 +1,19 @@
 {% extends "adventcalendar/calendar.html" %}
 
 {% block header %}
-{% if object.calendar.creator == view.request.user %}
     <p><a href={% url 'calendar_detail' slug=object.calendar.slug%}>&lt; Back to {{ object.calendar.name }}</a></p>
-    <p><a class="btn btn-secondary" href="{% url 'door_edit' slug=object.slug %}" role="button">Edit door</a></p>
-    <p>
-    {% if previous_door %}
-        <a href={% url 'door_detail' slug=previous_door.slug%}>Previous door</a>
-    {% else %}Previous door{% endif %}
-    &nbsp;
-    {% if next_door %}
-        <a href={% url 'door_detail' slug=next_door.slug%}>Next door</a>
-    {% else %}Next door{% endif %}
-    </p>
-{% endif %}
+    {% if object.calendar.creator == view.request.user %}
+        <p><a class="btn btn-secondary" href="{% url 'door_edit' slug=object.slug %}" role="button">Edit door</a></p>
+        <p>
+            {% if previous_door %}
+                <a href={% url 'door_detail' slug=previous_door.slug%}>Previous door</a>
+            {% else %}Previous door{% endif %}
+            &nbsp;
+            {% if next_door %}
+                <a href={% url 'door_detail' slug=next_door.slug%}>Next door</a>
+            {% else %}Next door{% endif %}
+        </p>
+    {% endif %}
 {% endblock %}
 
 {% block calendar_header %}
