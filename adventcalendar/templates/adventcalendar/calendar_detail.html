@@ -8,6 +8,7 @@
     {% if object.creator != view.request.user %}
         <p>There are <b>{{ number_of_openable_doors }}</b> doors that you can open today.</p>
     {% else %}
+        <div class="d-flex align-items-baseline justify-content-between">
         <p>
             <a class="btn btn-secondary" href="{% url 'calendar_edit' slug=object.slug %}" role="button">Edit calendar</a>
             {%  if not doors_open %}
@@ -16,15 +17,30 @@
             {%  if doors_open %}
                 <a class="btn btn-secondary" href="{% url 'calendar_detail' slug=object.slug %}" role="button">Close doors</a>
             {% endif %}
+        </p>
+        <p>
+            <a class="btn btn-secondary" data-toggle="collapse" href="#help" role="button" aria-expanded="false" aria-controls="publishinfo">
+                How does this work?
+            </a>
             <a class="btn btn-secondary" data-toggle="collapse" href="#publishinfo" role="button" aria-expanded="false" aria-controls="publishinfo">
                 I'm done!
             </a>
         </p>
+        </div>
+        <div class="collapse" id="help">
+            <div class="card card-body">
+                Fill each door with a text or a picture! Click on a door to edit it. You can open the doors
+                to see which ones are still empty and close them to see their number.
+                Opening/closing doors as the owner of the calendar will not affect how the doors appear
+                to the recipient (they will see each door as closed until they open it).
+            </div>
+        </div>
         <div class="collapse" id="publishinfo">
             <div class="card card-body">
                 As soon as you are happy with your calendar and want to give it to a friend, simply send them the
-                link ({{ request.META.HTTP_HOST }}{{ request.path }}). The calendar can be accessed by anyone who has the link and once a door
-                is opened, it will remain open, so make sure to send each calendar to only one friend. Have fun!
+                link ({{ request.META.HTTP_HOST }}{{ request.path }}). The calendar can be accessed by anyone who
+                has the link and once a door is opened, it will remain open, so make sure to send each calendar
+                to only one friend. Have fun!
             </div>
         </div>
     {% endif %}

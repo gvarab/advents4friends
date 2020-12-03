@@ -2,7 +2,14 @@
 
 {% block content %}
     {% if user.is_authenticated %}
-        <h2>Calendars</h2>
+        <h2>How it works:</h2>
+        <ul>
+            <li>Create a calendar.</li>
+            <li>Fill the doors with your own texts, pictures, etc.</li>
+            <li>Send the link to the calendar to a friend.</li>
+            <li>If you want to send the same calendar to several friends, copy the calendar to create a unique link.</li>
+        </ul>
+        <h2>Calendars:</h2>
         <ul style="display: inline-block;">
             {% for calendar in object_list %}
                 <li>
