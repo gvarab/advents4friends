@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.html import strip_tags
@@ -10,7 +11,7 @@ import random, string
 class Calendar(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    number_of_doors = models.IntegerField(default=24)
+    number_of_doors = models.IntegerField(default=24, validators=[MinValueValidator(1), MaxValueValidator(365)])
     start_date = models.DateField(default=date(timezone.now().year, 12, 1), help_text = '(Format: YY-MM-DD)')
     slug = models.SlugField()
 
