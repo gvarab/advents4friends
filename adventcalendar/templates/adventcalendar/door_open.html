@@ -2,6 +2,7 @@
     <a class="text-dark" href="{% url 'door_detail' slug=door.slug %}">
         <div class="border-dark door door-open d-flex align-items-center">
             <div class="container text-center">
+                <p class="text-primary">{{ door.number }}</p>
                 <p>{{ door.short_content|safe }}</p>
             </div>
         </div>
